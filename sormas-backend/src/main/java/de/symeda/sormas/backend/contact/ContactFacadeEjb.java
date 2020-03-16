@@ -87,8 +87,10 @@ import de.symeda.sormas.backend.person.Person;
 import de.symeda.sormas.backend.person.PersonFacadeEjb;
 import de.symeda.sormas.backend.person.PersonService;
 import de.symeda.sormas.backend.region.District;
+import de.symeda.sormas.backend.region.DistrictFacadeEjb;
 import de.symeda.sormas.backend.region.DistrictService;
 import de.symeda.sormas.backend.region.Region;
+import de.symeda.sormas.backend.region.RegionFacadeEjb;
 import de.symeda.sormas.backend.region.RegionService;
 import de.symeda.sormas.backend.symptoms.Symptoms;
 import de.symeda.sormas.backend.task.Task;
@@ -438,25 +440,7 @@ public class ContactFacadeEjb implements ContactFacade {
 			for (Object[] followUpInfo : followUpInfoList) {
 				int day = DateHelper.getDaysBetween(start, (Date) followUpInfo[0]);
 				VisitResult result = getVisitResult((VisitStatus) followUpInfo[1], (boolean) followUpInfo[2]);
-				
-				switch (day) {
-				case 1:
-					followUpDto.setDay1Result(result); break;
-				case 2:
-					followUpDto.setDay2Result(result); break;
-				case 3:
-					followUpDto.setDay3Result(result); break;
-				case 4:
-					followUpDto.setDay4Result(result); break;
-				case 5:
-					followUpDto.setDay5Result(result); break;
-				case 6:
-					followUpDto.setDay6Result(result); break;
-				case 7:
-					followUpDto.setDay7Result(result); break;
-				case 8:
-					followUpDto.setDay8Result(result); break;
-				}
+				followUpDto.getVisitResults()[day - 1] = result;
 			}
 		}
 		
@@ -591,7 +575,7 @@ public class ContactFacadeEjb implements ContactFacade {
 		int[] counts = new int[3];
 		counts[0] = caseContactCounts.stream().min((l1, l2) -> l1.compareTo(l2)).orElse(0L).intValue();
 		counts[1] = caseContactCounts.stream().max((l1, l2) -> l1.compareTo(l2)).orElse(0L).intValue();
-		counts[2] = caseContactCounts.size() / caseIds.size();
+		counts[2] =  caseContactCounts.stream().reduce(0L, (a, b) -> a + b).intValue() / caseIds.size();
 		return counts;
 	}
 	
@@ -646,6 +630,9 @@ public class ContactFacadeEjb implements ContactFacade {
 		target.setReportLon(source.getReportLon());
 		target.setReportLatLonAccuracy(source.getReportLatLonAccuracy());
 		target.setExternalID(source.getExternalID());
+		
+		target.setRegion(regionService.getByReferenceDto(source.getRegion()));
+		target.setDistrict(districtService.getByReferenceDto(source.getDistrict()));
 
 		return target;
 	}
@@ -741,6 +728,9 @@ public class ContactFacadeEjb implements ContactFacade {
 		target.setReportLon(source.getReportLon());
 		target.setReportLatLonAccuracy(source.getReportLatLonAccuracy());
 		target.setExternalID(source.getExternalID());
+		
+		target.setRegion(RegionFacadeEjb.toReferenceDto(source.getRegion()));
+		target.setDistrict(DistrictFacadeEjb.toReferenceDto(source.getDistrict()));
 		
 		return target;
 	}

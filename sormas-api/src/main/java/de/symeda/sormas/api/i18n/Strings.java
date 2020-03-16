@@ -155,6 +155,7 @@ public interface Strings {
 	public static String headingConfirmDeletion = "headingConfirmDeletion";
 	public static String headingConfirmMerging = "headingConfirmMerging";
 	public static String headingConfirmUpdateCompleteness = "headingConfirmUpdateCompleteness";
+	public static String headingContactConfirmationRequired = "headingContactConfirmationRequired";
 	public static String headingContactData = "headingContactData";
 	public static String headingContactInformation = "headingContactInformation";
 	public static String headingContactMap = "headingContactMap";
@@ -248,6 +249,7 @@ public interface Strings {
 	public static String headingNewPassword = "headingNewPassword";
 	public static String headingNewSourceCases = "headingNewSourceCases";
 	public static String headingNewTestResults = "headingNewTestResults";
+	public static String headingNoCaseFound = "headingNoCaseFound";
 	public static String headingNoCasesSelected = "headingNoCasesSelected";
 	public static String headingNoClinicalVisitsSelected = "headingNoClinicalVisitsSelected";
 	public static String headingNoContactsSelected = "headingNoContactsSelected";
@@ -350,6 +352,7 @@ public interface Strings {
 	public static String infoSampleAdditionalTesting = "infoSampleAdditionalTesting";
 	public static String infoSampleExport = "infoSampleExport";
 	public static String infoSamplePathogenTesting = "infoSamplePathogenTesting";
+	public static String infoSpecificCaseSearch = "infoSpecificCaseSearch";
 	public static String infoStatisticsDisclaimer = "infoStatisticsDisclaimer";
 	public static String infoStatisticsFilter = "infoStatisticsFilter";
 	public static String infoStatisticsResults = "infoStatisticsResults";
@@ -401,6 +404,7 @@ public interface Strings {
 	public static String messageContactSaved = "messageContactSaved";
 	public static String messageContactsDeleted = "messageContactsDeleted";
 	public static String messageContactsEdited = "messageContactsEdited";
+	public static String messageContactToCaseConfirmationRequired = "messageContactToCaseConfirmationRequired";
 	public static String messageCopyPassword = "messageCopyPassword";
 	public static String messageCreateCollectionTask = "messageCreateCollectionTask";
 	public static String messageDatabaseExportFailed = "messageDatabaseExportFailed";
@@ -462,6 +466,7 @@ public interface Strings {
 	public static String messageLoginFailed = "messageLoginFailed";
 	public static String messageMissingDateFilter = "messageMissingDateFilter";
 	public static String messageMissingEpiWeekFilter = "messageMissingEpiWeekFilter";
+	public static String messageNoCaseFound = "messageNoCaseFound";
 	public static String messageNoCasesSelected = "messageNoCasesSelected";
 	public static String messageNoClinicalVisitsSelected = "messageNoClinicalVisitsSelected";
 	public static String messageNoContactsSelected = "messageNoContactsSelected";

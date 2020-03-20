@@ -85,6 +85,7 @@ public interface Strings {
 	public static String confirmationMergeCaseAndDeleteOther = "confirmationMergeCaseAndDeleteOther";
 	public static String confirmationPickCaseAndDeleteOther = "confirmationPickCaseAndDeleteOther";
 	public static String confirmationUpdateCompleteness = "confirmationUpdateCompleteness";
+	public static String day = "day";
 	public static String done = "done";
 	public static String edit = "edit";
 	public static String entityAdditionalTest = "entityAdditionalTest";
@@ -217,6 +218,7 @@ public interface Strings {
 	public static String headingHealthConditions = "headingHealthConditions";
 	public static String headingHospitalization = "headingHospitalization";
 	public static String headingHowToMergeCases = "headingHowToMergeCases";
+	public static String headingImportCaseContacts = "headingImportCaseContacts";
 	public static String headingImportCases = "headingImportCases";
 	public static String headingImportCommunities = "headingImportCommunities";
 	public static String headingImportCsvFile = "headingImportCsvFile";
@@ -522,6 +524,7 @@ public interface Strings {
 	public static String messageWrongFileType = "messageWrongFileType";
 	public static String min = "min";
 	public static String mmhg = "mmhg";
+	public static String month = "month";
 	public static String no = "no";
 	public static String none = "none";
 	public static String notAnswered = "notAnswered";

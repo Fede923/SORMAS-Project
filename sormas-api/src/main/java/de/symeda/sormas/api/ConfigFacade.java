@@ -27,6 +27,8 @@ public interface ConfigFacade {
 	String getCountryName();
 	
 	String getCountryLocale();
+
+	boolean isGermanServer();
 	
 	String getEpidPrefix();
 	
@@ -71,5 +73,7 @@ public interface ConfigFacade {
 	GeoLatLon getCountryCenter();
 
 	int getMapZoom();
+
+	String getGeocodingOsgtsEndpoint();
 	
 }

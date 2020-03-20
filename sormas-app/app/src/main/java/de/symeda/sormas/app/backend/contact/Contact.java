@@ -35,7 +35,9 @@ import de.symeda.sormas.api.contact.ContactProximity;
 import de.symeda.sormas.api.contact.ContactRelation;
 import de.symeda.sormas.api.contact.ContactStatus;
 import de.symeda.sormas.api.contact.FollowUpStatus;
+import de.symeda.sormas.api.contact.QuarantineType;
 import de.symeda.sormas.api.utils.DataHelper;
+import de.symeda.sormas.api.utils.YesNoUnknown;
 import de.symeda.sormas.app.backend.caze.Case;
 import de.symeda.sormas.app.backend.common.AbstractDomainObject;
 import de.symeda.sormas.app.backend.person.Person;
@@ -121,6 +123,22 @@ public class Contact extends AbstractDomainObject {
 	private String resultingCaseUuid;
 	@DatabaseField(foreign = true, foreignAutoRefresh = true)
 	private User resultingCaseUser;
+
+	@DatabaseField
+	private boolean highPriority;
+	@Enumerated(EnumType.STRING)
+	private YesNoUnknown immunosuppressiveTherapyBasicDisease;
+	@Column(length = 512)
+	private String immunosuppressiveTherapyBasicDiseaseDetails;
+	@Enumerated(EnumType.STRING)
+	private YesNoUnknown careForPeopleOver60;
+
+	@Enumerated(EnumType.STRING)
+	private QuarantineType quarantine;
+	@DatabaseField(dataType = DataType.DATE_LONG, canBeNull = true)
+	private Date quarantineFrom;
+	@DatabaseField(dataType = DataType.DATE_LONG, canBeNull = true)
+	private Date quarantineTo;
 
 	public Person getPerson() {
 		return person;
@@ -324,4 +342,59 @@ public class Contact extends AbstractDomainObject {
 		this.district = district;
 	}
 
+	public boolean isHighPriority() {
+		return highPriority;
+	}
+
+	public void setHighPriority(boolean highPriority) {
+		this.highPriority = highPriority;
+	}
+
+	public YesNoUnknown getImmunosuppressiveTherapyBasicDisease() {
+		return immunosuppressiveTherapyBasicDisease;
+	}
+
+	public void setImmunosuppressiveTherapyBasicDisease(YesNoUnknown immunosuppressiveTherapyBasicDisease) {
+		this.immunosuppressiveTherapyBasicDisease = immunosuppressiveTherapyBasicDisease;
+	}
+
+	public String getImmunosuppressiveTherapyBasicDiseaseDetails() {
+		return immunosuppressiveTherapyBasicDiseaseDetails;
+	}
+
+	public void setImmunosuppressiveTherapyBasicDiseaseDetails(String immunosuppressiveTherapyBasicDiseaseDetails) {
+		this.immunosuppressiveTherapyBasicDiseaseDetails = immunosuppressiveTherapyBasicDiseaseDetails;
+	}
+
+	public YesNoUnknown getCareForPeopleOver60() {
+		return careForPeopleOver60;
+	}
+
+	public void setCareForPeopleOver60(YesNoUnknown careForPeopleOver60) {
+		this.careForPeopleOver60 = careForPeopleOver60;
+	}
+
+	public QuarantineType getQuarantine() {
+		return quarantine;
+	}
+
+	public void setQuarantine(QuarantineType quarantine) {
+		this.quarantine = quarantine;
+	}
+
+	public Date getQuarantineFrom() {
+		return quarantineFrom;
+	}
+
+	public void setQuarantineFrom(Date quarantineFrom) {
+		this.quarantineFrom = quarantineFrom;
+	}
+
+	public Date getQuarantineTo() {
+		return quarantineTo;
+	}
+
+	public void setQuarantineTo(Date quarantineTo) {
+		this.quarantineTo = quarantineTo;
+	}
 }

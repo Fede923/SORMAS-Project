@@ -82,7 +82,8 @@ public class InfrastructureImporter extends DataImporter {
 			return null;
 		});
 
-		// Save the infrastructure object into the database if the import has no errors
+		// Save the infrastructure object into the database if the import has no errors or throw an error
+		// if there is already an infrastructure object with this name in the database
 		if (!iHasImportError) {
 			try {
 				switch (type) {
@@ -133,8 +134,7 @@ public class InfrastructureImporter extends DataImporter {
 
 					// Execute the default invokes specified in the data importer; if none of those were triggered, execute additional invokes
 					// according to the types of the infrastructure object's fields; additionally, throw an error if infrastructure data that
-					// is referenced in the imported object does not exist in the database or the name of the imported infrastructure object
-					// already exists in the database
+					// is referenced in the imported object does not exist in the database
 					if (executeDefaultInvokings(pd, currentElement, value, entityPropertyPath)) {
 						continue;
 					} else if (propertyType.isAssignableFrom(DistrictReferenceDto.class)) {

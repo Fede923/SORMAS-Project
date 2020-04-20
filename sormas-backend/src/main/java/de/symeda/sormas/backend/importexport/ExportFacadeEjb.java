@@ -102,8 +102,10 @@ import de.symeda.sormas.backend.visit.Visit;
 @Stateless(name = "ExportFacade")
 public class ExportFacadeEjb implements ExportFacade {
 
+	private final Logger logger = LoggerFactory.getLogger(getClass());
+
 	@PersistenceContext(unitName = ModelConstants.PERSISTENCE_UNIT_NAME)
-	protected EntityManager em;
+	private EntityManager em;
 
 	@EJB
 	private ConfigFacadeEjbLocal configFacade;
@@ -129,8 +131,6 @@ public class ExportFacadeEjb implements ExportFacade {
 	private EpiDataService epiDataService;
 	@EJB
 	private ExportConfigurationService exportConfigurationService;
-
-	private static final Logger logger = LoggerFactory.getLogger(ExportFacadeEjb.class);
 
 	@Override
 	public String generateDatabaseExportArchive(List<DatabaseTable> databaseTables) throws ExportErrorException, IOException {
@@ -254,8 +254,8 @@ public class ExportFacadeEjb implements ExportFacade {
 	}
 	
 	@Override
-	public List<ExportConfigurationDto> getExportConfigurations(String userUuid) {
-		User user = userService.getByUuid(userUuid);
+	public List<ExportConfigurationDto> getExportConfigurations() {
+		User user = userService.getCurrentUser();
 		
 		if (user == null) {
 			return Collections.emptyList();

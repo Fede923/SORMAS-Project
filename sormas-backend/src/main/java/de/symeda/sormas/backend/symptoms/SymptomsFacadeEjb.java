@@ -204,8 +204,6 @@ public class SymptomsFacadeEjb implements SymptomsFacade {
 		target.setConjunctivalInjection(source.getConjunctivalInjection());
 		target.setAcuteRespiratoryDistressSyndrome(source.getAcuteRespiratoryDistressSyndrome());
 		target.setPneumoniaClinicalOrRadiologic(source.getPneumoniaClinicalOrRadiologic());
-		target.setLossOfTaste(source.getLossOfTaste());
-		target.setLossOfSmell(source.getLossOfSmell());
 		
 		return symptoms;
 	}
@@ -375,8 +373,6 @@ public class SymptomsFacadeEjb implements SymptomsFacade {
 		target.setConjunctivalInjection(source.getConjunctivalInjection());
 		target.setAcuteRespiratoryDistressSyndrome(source.getAcuteRespiratoryDistressSyndrome());
 		target.setPneumoniaClinicalOrRadiologic(source.getPneumoniaClinicalOrRadiologic());
-		target.setLossOfTaste(source.getLossOfTaste());
-		target.setLossOfSmell(source.getLossOfSmell());
 
 		return target;
 	}

@@ -31,8 +31,6 @@ import com.vaadin.ui.VerticalLayout;
 
 import de.symeda.sormas.api.Disease;
 import de.symeda.sormas.api.FacadeProvider;
-import de.symeda.sormas.api.i18n.I18nProperties;
-import de.symeda.sormas.api.i18n.Strings;
 import de.symeda.sormas.api.region.DistrictReferenceDto;
 import de.symeda.sormas.api.region.RegionReferenceDto;
 import de.symeda.sormas.ui.dashboard.DashboardDataProvider;
@@ -43,9 +41,6 @@ public class DashboardNetworkComponent extends VerticalLayout {
 
 	// Layouts and components
 	private final DashboardDataProvider dashboardDataProvider;
-	private HorizontalLayout mapHeaderLayout;
-	private Button expandMapButton;
-	private Button collapseMapButton;
 	private final NetworkDiagram diagram;
 
 	private Consumer<Boolean> externalExpandListener;
@@ -72,7 +67,7 @@ public class DashboardNetworkComponent extends VerticalLayout {
 
 		diagram = new NetworkDiagram();
 		diagram.setSizeFull();
-		
+
 		this.setMargin(true);
 
 		// Add components
@@ -80,21 +75,12 @@ public class DashboardNetworkComponent extends VerticalLayout {
 		addComponent(diagram);
 //		addComponent(createFooter());
 		setExpandRatio(diagram, 1);
-		diagram.setVisible(false);
 	}
 
-	boolean dirty = true;
 	public void refreshDiagram() {
-		dirty = true;
-		updateDiagram();
 
-	}
+		diagram.updateDiagram(getNetworkDiagramJson());
 
-	private void updateDiagram() {
-		if (dirty && diagram.isVisible()) {
-			diagram.updateDiagram(getNetworkDiagramJson());
-			dirty = false;
-		}
 	}
 
 	public void setExpandListener(Consumer<Boolean> listener) {
@@ -102,7 +88,7 @@ public class DashboardNetworkComponent extends VerticalLayout {
 	}
 
 	private HorizontalLayout createHeader() {
-		mapHeaderLayout = new HorizontalLayout();
+		HorizontalLayout mapHeaderLayout = new HorizontalLayout();
 		mapHeaderLayout.setWidth(100, Unit.PERCENTAGE);
 		mapHeaderLayout.setSpacing(true);
 		CssStyles.style(mapHeaderLayout, CssStyles.VSPACE_4);
@@ -117,35 +103,31 @@ public class DashboardNetworkComponent extends VerticalLayout {
 //			mapHeaderLayout.setComponentAlignment(diagramLabel, Alignment.BOTTOM_LEFT);
 //			mapHeaderLayout.setExpandRatio(diagramLabel, 1);
 //		}
-		expandMapButton = new Button(I18nProperties.getString(Strings.infoDisplayNetworkDiagram), VaadinIcons.EXPAND);
+
+		// "Expand" and "Collapse" buttons
+		Button expandMapButton = new Button("", VaadinIcons.EXPAND);
 		CssStyles.style(expandMapButton, CssStyles.BUTTON_SUBTLE);
 		expandMapButton.addStyleName(CssStyles.VSPACE_NONE);
-		collapseMapButton = new Button("", VaadinIcons.COMPRESS);
+		Button collapseMapButton = new Button("", VaadinIcons.COMPRESS);
 		CssStyles.style(collapseMapButton, CssStyles.BUTTON_SUBTLE);
 		collapseMapButton.addStyleName(CssStyles.VSPACE_NONE);
 
-		expandMapButton.addClickListener(e -> expandMap(true));
-		collapseMapButton.addClickListener(e -> expandMap(false));
+		expandMapButton.addClickListener(e -> {
+			externalExpandListener.accept(true);
+			mapHeaderLayout.removeComponent(expandMapButton);
+			mapHeaderLayout.addComponent(collapseMapButton);
+			mapHeaderLayout.setComponentAlignment(collapseMapButton, Alignment.MIDDLE_RIGHT);
+		});
+		collapseMapButton.addClickListener(e -> {
+			externalExpandListener.accept(false);
+			mapHeaderLayout.removeComponent(collapseMapButton);
+			mapHeaderLayout.addComponent(expandMapButton);
+			mapHeaderLayout.setComponentAlignment(expandMapButton, Alignment.MIDDLE_RIGHT);
+		});
 		mapHeaderLayout.addComponent(expandMapButton);
 		mapHeaderLayout.setComponentAlignment(expandMapButton, Alignment.MIDDLE_RIGHT);
 
 		return mapHeaderLayout;
-	}
-
-	private void expandMap(boolean expand) {
-		externalExpandListener.accept(expand);
-		if (expand) {
-			mapHeaderLayout.removeComponent(expandMapButton);
-			mapHeaderLayout.addComponent(collapseMapButton);
-			mapHeaderLayout.setComponentAlignment(collapseMapButton, Alignment.MIDDLE_RIGHT);
-			diagram.setVisible(true);
-			updateDiagram();
-		} else {
-			mapHeaderLayout.removeComponent(collapseMapButton);
-			mapHeaderLayout.addComponent(expandMapButton);
-			mapHeaderLayout.setComponentAlignment(expandMapButton, Alignment.MIDDLE_RIGHT);
-			diagram.setVisible(false);
-		}
 	}
 
 //	private HorizontalLayout createFooter() {

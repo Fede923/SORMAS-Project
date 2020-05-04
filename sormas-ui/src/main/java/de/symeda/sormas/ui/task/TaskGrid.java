@@ -30,7 +30,6 @@ import com.vaadin.ui.renderers.DateRenderer;
 import com.vaadin.ui.renderers.HtmlRenderer;
 
 import de.symeda.sormas.api.FacadeProvider;
-import de.symeda.sormas.api.Language;
 import de.symeda.sormas.api.ReferenceDto;
 import de.symeda.sormas.api.i18n.I18nProperties;
 import de.symeda.sormas.api.task.TaskCriteria;
@@ -96,10 +95,9 @@ public class TaskGrid extends FilteredGrid<TaskIndexDto, TaskCriteria> implement
         		TaskIndexDto.SUGGESTED_START, TaskIndexDto.DUE_DATE,
         		TaskIndexDto.ASSIGNEE_USER, TaskIndexDto.ASSIGNEE_REPLY, 
         		TaskIndexDto.CREATOR_USER, TaskIndexDto.CREATOR_COMMENT, TaskIndexDto.TASK_STATUS);
-
-		Language userLanguage = I18nProperties.getUserLanguage();
-		((Column<TaskIndexDto, Date>)getColumn(TaskIndexDto.DUE_DATE)).setRenderer(new DateRenderer(DateHelper.getLocalDateTimeFormat(userLanguage)));
-		((Column<TaskIndexDto, Date>)getColumn(TaskIndexDto.SUGGESTED_START)).setRenderer(new DateRenderer(DateHelper.getLocalDateTimeFormat(userLanguage)));
+        
+		((Column<TaskIndexDto, Date>)getColumn(TaskIndexDto.DUE_DATE)).setRenderer(new DateRenderer(DateHelper.getLocalDateTimeFormat()));
+		((Column<TaskIndexDto, Date>)getColumn(TaskIndexDto.SUGGESTED_START)).setRenderer(new DateRenderer(DateHelper.getLocalDateTimeFormat()));
 		((Column<TaskIndexDto, String>)getColumn(TaskIndexDto.CREATOR_COMMENT)).setRenderer(new ShortStringRenderer(50));
         
 		Column<TaskIndexDto, ReferenceDto> contextColumn = (Column<TaskIndexDto, ReferenceDto>) getColumn(TaskIndexDto.CONTEXT_REFERENCE);

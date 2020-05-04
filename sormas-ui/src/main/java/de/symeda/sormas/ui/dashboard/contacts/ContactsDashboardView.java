@@ -19,7 +19,6 @@ package de.symeda.sormas.ui.dashboard.contacts;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.function.Consumer;
 import java.util.stream.Collectors;
 
 import com.vaadin.icons.VaadinIcons;
@@ -109,12 +108,10 @@ public class ContactsDashboardView extends AbstractDashboardView {
 			rowsLayout.addComponent(networkDiagramRowLayout);
 
 			networkDiagramLayout.ifPresent(l -> {
-				Consumer<Boolean> diseaseFilterChangeCallback = (diseaseSelected) -> {
+				filterLayout.setDiseaseFilterChangeCallback((diseaseSelected) -> {
 					networkDiagramLayout.get().setVisible(diseaseSelected);
 					noNetworkDiagramLayout.setVisible(!diseaseSelected);
-				};
-				filterLayout.setDiseaseFilterChangeCallback(diseaseFilterChangeCallback);
-				diseaseFilterChangeCallback.accept(null != dashboardDataProvider.getDisease());
+				});
 			});
 		}
 	}
@@ -172,11 +169,11 @@ public class ContactsDashboardView extends AbstractDashboardView {
 
 	private void updateCaseCountsAndSourceCasesLabels() {
 		List<String> contactUuids = dashboardDataProvider.getContacts().stream().map(dto -> dto.getUuid()).collect(Collectors.toList());
-		int[] counts;
-		if (contactUuids.isEmpty()) {
-			counts = new int[3];
-		} else {
+		int[] counts = null;
+		if (!contactUuids.isEmpty()) {
 			counts = FacadeProvider.getContactFacade().getContactCountsByCasesForDashboard(contactUuids);
+		} else {
+			counts = new int[3];
 		}
 
 		int minContactCount = counts[0];
@@ -230,7 +227,7 @@ public class ContactsDashboardView extends AbstractDashboardView {
 
 		noNetworkDiagramLayout = new HorizontalLayout();
 		noNetworkDiagramLayout.setMargin(true);
-		Label noDiagramLabel = new Label(VaadinIcons.CLUSTER.getHtml() + " " + I18nProperties.getString(Strings.infoNoNetworkDiagram), ContentMode.HTML);
+		Label noDiagramLabel = new Label(VaadinIcons.INFO_CIRCLE.getHtml() + " " + I18nProperties.getString(Strings.infoNoNetworkDiagram), ContentMode.HTML);
 		noNetworkDiagramLayout.addComponent(noDiagramLabel);
 		layout.addComponent(noNetworkDiagramLayout);
 		layout.setComponentAlignment(noNetworkDiagramLayout, Alignment.MIDDLE_CENTER);
@@ -329,7 +326,7 @@ public class ContactsDashboardView extends AbstractDashboardView {
 			VerticalLayout layout = new VerticalLayout();
 			layout.setMargin(false);
 			layout.setSpacing(false);
-			layout.setHeightUndefined();
+			layout.setHeight(ROW_HEIGHT, Unit.PIXELS);
 
 			ndc.setSizeFull();
 
@@ -346,7 +343,7 @@ public class ContactsDashboardView extends AbstractDashboardView {
 				} else {
 					rowsLayout.addComponent(statisticsComponent, 0);
 					ContactsDashboardView.this.setHeightUndefined();
-					layout.setHeightUndefined();
+					layout.setHeight(ROW_HEIGHT, Unit.PIXELS);
 					networkDiagramRowLayout.setHeightUndefined();
 					rowsLayout.setHeightUndefined();
 				}

@@ -19,7 +19,6 @@ package de.symeda.sormas.ui.samples;
 
 import java.util.Date;
 
-import de.symeda.sormas.ui.utils.*;
 import org.vaadin.hene.popupbutton.PopupButton;
 
 import com.vaadin.icons.VaadinIcons;
@@ -43,6 +42,11 @@ import de.symeda.sormas.api.user.UserRight;
 import de.symeda.sormas.api.utils.DateHelper;
 import de.symeda.sormas.ui.UserProvider;
 import de.symeda.sormas.ui.ViewModelProviders;
+import de.symeda.sormas.ui.utils.AbstractView;
+import de.symeda.sormas.ui.utils.CssStyles;
+import de.symeda.sormas.ui.utils.DownloadUtil;
+import de.symeda.sormas.ui.utils.GridExportStreamResource;
+import de.symeda.sormas.ui.utils.ViewConfiguration;
 
 @SuppressWarnings("serial")
 public class SamplesView extends AbstractView {
@@ -98,7 +102,7 @@ public class SamplesView extends AbstractView {
 												I18nProperties.getPrefixCaption(PersonDto.I18N_PREFIX, propertyId,
 														I18nProperties.getPrefixCaption(AdditionalTestDto.I18N_PREFIX, propertyId)))));
 						if (Date.class.isAssignableFrom(type)) {
-							caption += " (" + DateFormatHelper.getDateFormatPattern() + ")";
+							caption += " (" + DateHelper.getLocalShortDatePattern() + ")";
 						}
 						return caption;
 					},

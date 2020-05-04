@@ -17,11 +17,6 @@
  *******************************************************************************/
 package de.symeda.sormas.ui.utils;
 
-import java.util.Arrays;
-import java.util.Date;
-import java.util.Objects;
-
-import de.symeda.sormas.api.utils.DateHelper;
 import org.vaadin.hene.popupbutton.PopupButton;
 
 import com.vaadin.navigator.View;
@@ -174,23 +169,5 @@ public abstract class AbstractView extends VerticalLayout implements View {
 		exportLayout.addComponent(exportButton);
 
 		new FileDownloader(streamResource).extend(exportButton);
-	}
-
-	/**
-	 * Iterates through the prefixes to determines the caption for the specified propertyId.
-	 *
-	 * @return
-	 */
-	protected static String findPrefixCaption(String propertyId, String ... prefixes) {
-		return Arrays.stream(prefixes)
-				.map(p -> I18nProperties.getPrefixCaption(p, propertyId, null))
-				.filter(Objects::nonNull)
-				.findFirst()
-				.orElse(propertyId);
-	}
-
-
-	protected String createFileNameWithCurrentDate(String fileNamePrefix, String fileExtension) {
-		return fileNamePrefix + DateHelper.formatDateForExport(new Date()) + fileExtension;
 	}
 }

@@ -37,9 +37,9 @@ import de.symeda.sormas.api.sample.SamplePurpose;
 import de.symeda.sormas.api.sample.SpecimenCondition;
 import de.symeda.sormas.api.user.UserRight;
 import de.symeda.sormas.api.utils.DataHelper;
+import de.symeda.sormas.api.utils.DateHelper;
 import de.symeda.sormas.ui.UserProvider;
 import de.symeda.sormas.ui.utils.CssStyles;
-import de.symeda.sormas.ui.utils.DateFormatHelper;
 
 @SuppressWarnings("serial")
 public class SampleListEntry extends HorizontalLayout {
@@ -79,7 +79,7 @@ public class SampleListEntry extends HorizontalLayout {
 			topLeftLayout.addComponent(materialLabel);
 			
 			Label dateTimeLabel = new Label(I18nProperties.getPrefixCaption(SampleDto.I18N_PREFIX, SampleDto.SAMPLE_DATE_TIME)
-					+ ": " + DateFormatHelper.formatDate(sample.getSampleDateTime()));
+					+ ": " + DateHelper.formatLocalShortDate(sample.getSampleDateTime()));
 			topLeftLayout.addComponent(dateTimeLabel);
 			
 			if (sample.getSamplePurpose() == SamplePurpose.INTERNAL) {
@@ -120,9 +120,9 @@ public class SampleListEntry extends HorizontalLayout {
 				referredLabel.addStyleName(CssStyles.LABEL_NOT);
 			} else if (sample.getSamplePurpose() != SamplePurpose.INTERNAL) {
 				if (sample.isReceived()) {
-					referredLabel.setValue(I18nProperties.getCaption(Captions.sampleReceived) + " " + DateFormatHelper.formatDate(sample.getReceivedDate()));
+					referredLabel.setValue(I18nProperties.getCaption(Captions.sampleReceived) + " " + DateHelper.formatLocalShortDate(sample.getReceivedDate()));
 				} else if (sample.isShipped()) {
-					referredLabel.setValue(I18nProperties.getCaption(Captions.sampleShipped) + " " + DateFormatHelper.formatDate((sample.getShipmentDate())));
+					referredLabel.setValue(I18nProperties.getCaption(Captions.sampleShipped) + " " + DateHelper.formatLocalShortDate(sample.getShipmentDate()));
 				} else {
 					referredLabel.setValue(I18nProperties.getCaption(Captions.sampleNotShippedLong));
 				}

@@ -1,29 +1,29 @@
 # Basics
-In general data access & synchronisation is based on the following rules:
+In general synchronization is based on the following rules:
 
-* hospital informant: all data associated to the facility (cases)
-* community informant: all data associated to the community (cases)
-* officers: all data associated to the district (cases, events)
-* supervisors: all data associated to the region
+* informant: all data associated to the facility (cases)
+* officers: all data associated to the LGA/district (cases, events)
 * all data that is created by the user
 * all data associated to the above data (contacts, tasks, persons, visits)
 * special case: if an officer has access to a task or contact whose case/event/contact is not available, the association link should be inactive
 
 # Case
 * whoever created the case or is assigned to it is allowed to access it
-* access by region/district/community/health facility/point of entry of the case
+* supervisors see all cases of their region
+* officers see all cases of their district
+* informants see all cases of their facility
 
 # Contact
 * whoever created it or is assigned to it is allowed to access it
 * users see all contacts of their cases
-* access by region/district of the contact
 
 # Visits
 * uses see all visits of the user's contact's persons
 
 # Event
 * whoever created the event or is assigned to it is allowed to access it
-* access by region/district of the event
+* supervisors see all events of their region
+* officers see all events of their district
 * informants dont see events
 
 # EventParticipant
@@ -41,6 +41,7 @@ In general data access & synchronisation is based on the following rules:
 * lab users see all samples of their laboratory
 
 # Persons
+* all persons resident in the user's LGA
 * all persons of the cases the user can access
 * all persons of the contacts the user can access
 * all persons of the events the user can access

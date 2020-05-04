@@ -23,7 +23,6 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
-import de.symeda.sormas.ui.utils.DateFormatHelper;
 import org.vaadin.hene.popupbutton.PopupButton;
 
 import com.vaadin.ui.VerticalLayout;
@@ -112,7 +111,7 @@ public class ContactsEpiCurveComponent extends AbstractEpiCurveComponent {
 		Calendar calendar = Calendar.getInstance();
 		for (Date date : datesGroupedBy) {
 			if (epiCurveGrouping == EpiCurveGrouping.DAY) {
-				String label = DateFormatHelper.formatDate(date);
+				String label = DateHelper.formatLocalShortDate(date);
 				newLabels.add(label);
 			} else if (epiCurveGrouping == EpiCurveGrouping.WEEK) {
 				calendar.setTime(date);

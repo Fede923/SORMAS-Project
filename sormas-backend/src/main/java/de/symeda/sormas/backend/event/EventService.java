@@ -141,9 +141,7 @@ public class EventService extends AbstractCoreAdoService<Event> {
 
 			result = em.createQuery(cq).getResultList();
 			for (DashboardEventDto dashboardEventDto : result) {
-				if (dashboardEventDto.getDistrictUuid() != null) {
-					dashboardEventDto.setDistrict(districtFacade.getDistrictReferenceByUuid(dashboardEventDto.getDistrictUuid()));
-				}
+				dashboardEventDto.setDistrict(districtFacade.getDistrictReferenceByUuid(dashboardEventDto.getDistrictUuid()));
 			}
 		} else {
 			result = Collections.emptyList();

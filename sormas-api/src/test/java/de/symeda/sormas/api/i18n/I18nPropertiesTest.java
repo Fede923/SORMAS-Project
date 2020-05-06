@@ -5,6 +5,7 @@ import static org.hamcrest.Matchers.empty;
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.not;
 
+<<<<<<< HEAD
 import java.util.Locale;
 import java.util.ResourceBundle;
 import java.util.Set;
@@ -46,5 +47,29 @@ public class I18nPropertiesTest {
 				assertThat(l.name(), keys, not(empty()));
 			}
 		}
+=======
+import java.util.ResourceBundle;
+import java.util.Set;
+
+import org.junit.Test;
+
+import de.symeda.sormas.api.Language;
+import de.symeda.sormas.api.i18n.I18nProperties.UTF8Control;
+
+public class I18nPropertiesTest {
+
+	@Test
+	public void testNormalizeCountryCode() throws Exception {
+		assertThat(I18nProperties.UTF8Control.normalizeCountryCode("captions_en"), is("captions_en"));
+		assertThat(I18nProperties.UTF8Control.normalizeCountryCode("captions_en-ng"), is("captions_en-NG"));
+	}
+	
+	@Test
+	public void testUTF8Control() throws Exception {
+		
+		ResourceBundle deDeBundle = new UTF8Control().newBundle("captions", Language.DE.getLocaleWithCountryCode(), "java.properties", getClass().getClassLoader(), true);
+		Set<String> deDeKeys = deDeBundle.keySet();
+		assertThat(deDeKeys, not(empty()));
+>>>>>>> branch 'development' of https://github.com/Fede923/SORMAS-Project
 	}
 }

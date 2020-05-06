@@ -3,7 +3,11 @@
     <parent>
         <artifactId>sormas-base</artifactId>
         <groupId>de.symeda.sormas</groupId>
+<<<<<<< HEAD
         <version>1.40.0-SNAPSHOT</version>
+=======
+        <version>1.38.0-SNAPSHOT</version>
+>>>>>>> branch 'development' of https://github.com/Fede923/SORMAS-Project
         <relativePath>../sormas-base</relativePath>
     </parent>
     <modelVersion>4.0.0</modelVersion>

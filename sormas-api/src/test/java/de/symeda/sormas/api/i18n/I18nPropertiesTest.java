@@ -5,6 +5,7 @@ import static org.hamcrest.Matchers.empty;
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.not;
 
+
 import java.util.Locale;
 import java.util.ResourceBundle;
 import java.util.Set;
@@ -48,3 +49,4 @@ public class I18nPropertiesTest {
 		}
 	}
 }
+
